@@ -12,14 +12,14 @@ int main(int argc,char** argv) {
 		}
 	}
 	cv::Mat resized;
-	cv::resize(src, resized, cv::Size(src.cols / 2, src.rows / 2));
+	cv::resize(src, resized, cv::Size(src.cols / 10, src.rows / 10));
 	// 创建可调整大小的窗口
 	cv::namedWindow("输入图像", cv::WINDOW_NORMAL);
 	cv::imshow("输入图像", resized);
 	
 
 	QuickDemo qd;
-	qd.colorSpace_Demo(resized);
+	qd.check_bar_demo(resized);
 
 	cv::waitKey(0);
 

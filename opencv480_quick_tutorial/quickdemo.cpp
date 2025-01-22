@@ -179,4 +179,115 @@ void QuickDemo::check_bar_demo(Mat& image)
 
 }
 
+void QuickDemo::key_demo(Mat& image)
+{
+	Mat dst=Mat::zeros(image.size(),image.type());
+	Mat temp=Mat::zeros(image.size(), image.type());;
+	temp = Scalar(50, 50, 50);
+	Mat original = image.clone(); // 保存原始图像
+
+	while (true) {
+		char c = waitKey(10);
+		if (c == 27) break;
+
+		if (c == 49) {
+			std::cout << "you enter key #1" << std::endl;
+			cvtColor(image, dst, COLOR_BGR2GRAY);
+		}
+
+		if (c == 50) {
+			std::cout << "you enter key #2" << std::endl;
+			cvtColor(image, dst, COLOR_BGR2HSV);
+		}
+
+		if (c == 51) {
+			std::cout << "you enter key #3" << std::endl;;
+			add(image, temp, dst);
+			image += temp;
+		}
+
+		if (c == 52) {
+			std::cout << "you enter key #4" << std::endl;;
+			subtract(image, temp, dst);
+			image -= temp;
+		}
+
+		imshow("键盘响应", dst);
+	}
+
+}
+
+void QuickDemo::color_style_demo(Mat& image)
+{
+	Mat grayimage;
+	cvtColor(image, grayimage, COLOR_BGR2GRAY);;
+	
+	for (int i = 0; i <= 21; i++) {
+		Mat colorImage;
+		applyColorMap(grayimage, colorImage, i);
+
+		std::string windowName = "Color Map ";
+		namedWindow(windowName, WINDOW_NORMAL);
+		imshow(windowName, colorImage);
+		waitKey(500);
+	}
+
+}
+
+void QuickDemo::bitwise_demo(Mat& image)
+{
+	Mat m1 = Mat::zeros(Size(256, 256), CV_8UC3);
+	Mat m2 = Mat::zeros(Size(256, 256), CV_8UC3);
+
+	rectangle(m1, Rect(100, 100, 80, 80), Scalar(255, 255, 0), -1, LINE_8, 0);
+	rectangle(m2, Rect(150, 150, 80, 80), Scalar(0, 255, 255), -1, LINE_8, 0);
+	imshow("m1", m1);
+	imshow("m2", m2);
+
+	Mat dst;
+	bitwise_xor(m1, m2, dst);
+	imshow("像素位操作", dst);
+}
+
+void QuickDemo::channels_demo(Mat& image)
+{
+	std::vector<Mat> mv;
+	split(image, mv);
+
+	imshow("蓝色", mv[0]);
+	imshow("绿色", mv[1]);
+	imshow("红色", mv[2]);
+
+	Mat dst;
+	mv[0] = 0;
+	mv[1] = 0;
+
+	merge(mv,dst);
+	imshow("红色", dst);
+
+	int from_to[] = { 0,2,1,1,2,0 }; //0->2 1->1 2->0
+	mixChannels(&image,1 ,&dst, 1,from_to,3);
+	imshow("通道混合", dst);
+}
+
+void QuickDemo::inrange_demo(Mat& image)
+{
+	//gbr通道由于颜色分布太广很难提取准确的范围，而hsv只有一个颜色通道更容易提取
+	Mat hsv;
+	cvtColor(image, hsv, COLOR_BGR2HSV);
+	Mat mask;
+	inRange(hsv, Scalar(0, 0, 200), Scalar(180, 50, 255), mask);
+	imshow("mask",mask);
+
+	Mat redback=Mat::zeros(image.size(),image.type());
+	redback = Scalar(40, 40, 200);
+	bitwise_not(mask, mask);
+	imshow("mask", mask);
+
+	image.copyTo(redback, mask);
+	imshow("roi区域提取", redback);
+
+
+}
+
 

@@ -19,7 +19,7 @@ int main(int argc,char** argv) {
 	
 
 	QuickDemo qd;
-	qd.check_bar_demo(resized);
+	qd.inrange_demo(resized);
 
 	cv::waitKey(0);
 

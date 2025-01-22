@@ -10,6 +10,11 @@ public:
 	void pixel_visit_demo(Mat& image);
 	void operator_demo(Mat& image);
 	void check_bar_demo(Mat& image);
+	void key_demo(Mat& image);
+	void color_style_demo(Mat& image);
+	void bitwise_demo(Mat& image);
+	void channels_demo(Mat& image);
+	void inrange_demo(Mat& image);
 
 
 };

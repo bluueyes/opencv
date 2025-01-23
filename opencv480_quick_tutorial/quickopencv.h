@@ -15,6 +15,16 @@ public:
 	void bitwise_demo(Mat& image);
 	void channels_demo(Mat& image);
 	void inrange_demo(Mat& image);
-
-
+	void pixel_static_demo(Mat& image);
+	void draw_demo(Mat& image);
+	void random_drawing_demo(Mat& image);
+	void polyline_draw_demo(Mat& image);
+	void mouse_drawing_demo(Mat& image);
+	void norm_demo(Mat& image);
+	void resize_demo(Mat& image);
+	void flip_demo(Mat& image);
+	void rotate_demo(Mat& image);
+	void video_demo(Mat& iamge);
+	void showHistogranm_demo(Mat& image);
+	void Histogranm2D_demo(Mat& image);
 };

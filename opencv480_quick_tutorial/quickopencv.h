@@ -27,4 +27,9 @@ public:
 	void video_demo(Mat& iamge);
 	void showHistogranm_demo(Mat& image);
 	void Histogranm2D_demo(Mat& image);
+	void histogram_eq_demo(Mat& image);
+	void histogram_eq_color_demo(Mat& iamge);
+	void blur_demo(Mat& image);
+	void gaussian_blur_demo(Mat& image);
+	void bifilter_demo(Mat& image);
 };

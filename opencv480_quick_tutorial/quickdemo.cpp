@@ -615,4 +615,64 @@ void QuickDemo::Histogranm2D_demo(Mat& image)
 
 }
 
+//直方图均衡化
+void QuickDemo::histogram_eq_demo(Mat& image)
+{
+	Mat gray;
+	cvtColor(image, gray, COLOR_BGR2GRAY);
+	imshow("灰度图像", gray);
+	Mat dst;
+	//equalizeHist函数是OpenCV中的一个函数，用于对灰度图像进行直方图均衡化。
+	//通过调整图像的对比度，使得图像的灰度值分布更加均匀，从而增强图像的细节
+	equalizeHist(gray, dst);
+	imshow("直方图均衡化", dst);
+
+
+}
+
+void QuickDemo::histogram_eq_color_demo(Mat& image) {
+	// 分离图像的BGR通道
+	std::vector<Mat> bgr_planes;
+	split(image, bgr_planes);
+
+	// 对每个通道进行直方图均衡化
+	Mat b_hist_eq, g_hist_eq, r_hist_eq;
+	equalizeHist(bgr_planes[0], b_hist_eq);
+	equalizeHist(bgr_planes[1], g_hist_eq);
+	equalizeHist(bgr_planes[2], r_hist_eq);
+
+	// 合并均衡化后的通道
+	Mat hist_eq_image;
+	merge(std::vector<Mat>{b_hist_eq, g_hist_eq, r_hist_eq}, hist_eq_image);
+
+	// 显示原始图像和均衡化后的图像
+	namedWindow("原始图像", WINDOW_NORMAL);
+	imshow("原始图像", image);
+
+	namedWindow("均衡化后的图像", WINDOW_NORMAL);
+	imshow("均衡化后的图像", hist_eq_image);
+}
+
+void QuickDemo::blur_demo(Mat& image)
+{
+	Mat dst;
+	blur(image, dst, Size(3, 3), Point(-1, -1));
+	imshow("图像模糊", dst);
+
+}
+
+void QuickDemo::gaussian_blur_demo(Mat& image)
+{
+	Mat dst;
+	GaussianBlur(image, dst, Size(5, 5), 15);
+	imshow("高斯模糊", dst);
+}
+
+void QuickDemo::bifilter_demo(Mat& image)
+{
+	Mat dst;
+	bilateralFilter(image, dst, 0, 100, 10);
+	imshow("双边模糊", dst);
+}
+
 
